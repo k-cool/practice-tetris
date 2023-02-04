@@ -1,0 +1,20 @@
+{
+  "name": "tetris",
+  "version": "0.0.1",
+  "description": "테트리스",
+  "type": "module",
+  "main": "tetris.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k-cool/tetris-js.git"
+  },
+  "author": "purpleCoder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/k-cool/tetris-js/issues"
+  },
+  "homepage": "https://github.com/k-cool/tetris-js#readme"
+}

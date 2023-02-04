@@ -1,0 +1,107 @@
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+header {
+  width: 100%;
+  padding: 20px;
+  background-color: tomato;
+  color: white;
+  font-size: 24px;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+.wrapper {
+  padding: 24px;
+}
+
+.gameOver {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.gameOver > span {
+  color: white;
+  font-size: 30px;
+}
+
+.gameOver > button {
+  width: 120px;
+  height: 36px;
+  padding: 8px;
+  background-color: #008ffe;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gameOver > button:hover {
+  background-color: #8ab2d0;
+}
+
+.score {
+  padding: 20px;
+  text-align: center;
+  font-size: 36px;
+}
+
+.playground > ul {
+  width: 250px;
+  margin: 0 auto;
+  border: 2px solid #333;
+}
+
+.playground > ul > li {
+  width: 100%;
+  height: 25px;
+}
+
+.playground > ul > li > ul {
+  display: flex;
+}
+
+.playground > ul > li > ul > li {
+  width: 25px;
+  height: 25px;
+  outline: 0.5px solid #ccc;
+}
+
+.tree {
+  background-color: #67c23a;
+}
+
+.square {
+  background-color: slateblue;
+}
+
+.bar {
+  background-color: tomato;
+}
+
+.zee {
+  background-color: sienna;
+}
+
+.rightAngle {
+  background-color: cornflowerblue;
+}
+
+.leftAngle {
+  background-color: mediumorchid;
+}
