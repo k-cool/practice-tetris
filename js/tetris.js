@@ -5,6 +5,7 @@ import BGM from "./bgm.js";
 const playground = document.querySelector(".playground > ul");
 const gameOver = document.querySelector(".gameOver");
 const scoreDisplay = document.querySelector(".score");
+const starWrapper = document.querySelector(".starWrapper");
 const restartButton = document.querySelector(".gameOver > button");
 const volumeOnIcon = document.querySelector(".on");
 const volumeOffIcon = document.querySelector(".off");
@@ -76,6 +77,9 @@ function init() {
 function reset() {
   playground.innerHTML = "";
   gameOver.style.display = "none";
+  currentDificalty = "easy";
+  score = 0;
+  scoreDisplay.innerHTML = score;
   init();
 }
 
@@ -192,28 +196,60 @@ function checkMatch() {
     }
   });
 
-  for (let i = 0; i < matchLineCount; i++) {}
-
   if (matchLineCount) {
-    const addingScore = getAddingScore(matchLineCount);
-    console.log(matchLineCount, addingScore);
+    const multiple = getMultiple(matchLineCount);
+    const addingScore = matchLineCount * multiple;
     score += addingScore;
     scoreDisplay.innerText = score;
 
-    scoreDisplay.classList.add("zoomin");
-    setTimeout(() => {
-      scoreDisplay.classList.remove("zoomin");
-    }, 300);
+    switch (multiple) {
+      case 1:
+        scoreDisplay.classList.add("mutiple1");
+        starWrapper.classList.remove("hidden");
+
+        setTimeout(() => {
+          scoreDisplay.classList.remove("mutiple1");
+        }, 300);
+        setTimeout(() => {
+          starWrapper.classList.add("hidden");
+        }, 1200);
+        break;
+      case 2:
+        scoreDisplay.classList.add("mutiple2");
+        starWrapper.classList.remove("hidden");
+
+        setTimeout(() => {
+          scoreDisplay.classList.remove("mutiple2");
+        }, 300);
+        setTimeout(() => {
+          starWrapper.classList.add("hidden");
+        }, 1200);
+        break;
+      case 5:
+        scoreDisplay.classList.add("mutiple5");
+        starWrapper.classList.remove("hidden");
+
+        setTimeout(() => {
+          scoreDisplay.classList.remove("mutiple5");
+        }, 300);
+        setTimeout(() => {
+          starWrapper.classList.add("hidden");
+        }, 1200);
+        break;
+      default:
+        break;
+    }
+
+    currentDificalty = getDificalty(score);
   }
 
-  currentDificalty = getDificalty(score);
   generateNewBlock();
 }
 
-function getAddingScore(matchLineCount) {
-  if (matchLineCount < 2) return matchLineCount;
-  if (matchLineCount <= 3) return matchLineCount * 2;
-  return matchLineCount * 5;
+function getMultiple(matchLineCount) {
+  if (matchLineCount < 2) return 1;
+  if (matchLineCount <= 3) return 2;
+  return 5;
 }
 
 function getDificalty(score) {

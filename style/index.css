@@ -42,6 +42,7 @@ header {
 }
 
 .wrapper {
+  position: relative;
   padding: 24px;
 }
 
@@ -79,20 +80,23 @@ header {
   background-color: #8ab2d0;
 }
 
-.score {
+.scoreWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 50px;
   padding: 20px;
-  text-align: center;
+}
+
+.score {
   font-size: 36px;
   transition: all 0.5;
-  animation: target_image 1s;
+  animation: tilt 1s;
   animation-iteration-count: infinite;
 }
 
-@keyframes target_image {
+@keyframes tilt {
   0% {
     transform: rotate(-10deg);
   }
@@ -106,10 +110,92 @@ header {
   }
 }
 
-.zoomin {
-  color: orange;
-  font-size: 45px;
+.starWrapper {
+  position: absolute;
+  top: 35px;
+}
+
+.star {
+  width: 15px;
+  height: 15px;
+}
+
+.left {
+  transform: translate(10px, 15px);
+  animation: starLeft 1.2s;
+  animation-iteration-count: 1;
+}
+
+.middle {
+  transform: translate(0, 10px);
+  animation: starMiddle 1.2s;
+  animation-iteration-count: 1;
+}
+
+.right {
+  transform: translate(-10px, 15px);
+  animation: starRight 1.2s;
+  animation-iteration-count: 1;
+}
+
+@keyframes starLeft {
+  0% {
+    transform: translate(10px, 15px);
+  }
+  30% {
+    transform: translate(-5px, -15px) scale(1.3) rotate(-30deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-12px, -5px) scale(1.2) rotate(-40deg);
+    opacity: 0;
+  }
+}
+
+@keyframes starMiddle {
+  0% {
+    transform: translate(0, 10px);
+  }
+  30% {
+    transform: translate(0, -32px) scale(1.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, -25px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes starRight {
+  0% {
+    transform: translate(-10px, 15px);
+  }
+  30% {
+    transform: translate(5px, -15px) scale(1.3) rotate(30deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(12px, -5px) scale(1.2) rotate(40deg);
+    opacity: 0;
+  }
+}
+
+.mutiple1 {
+  color: cornflowerblue;
+  font-size: 40px;
   font-weight: 500px;
+}
+
+.mutiple2 {
+  color: orange;
+  font-size: 50px;
+  font-weight: 600px;
+}
+
+.mutiple5 {
+  color: tomato;
+  font-size: 70px;
+  font-weight: 800px;
 }
 
 .playground > ul {
