@@ -1,19 +1,55 @@
 import BLOCKS from "./blocks.js";
+import BGM from "./bgm.js";
 
 // DOM
 const playground = document.querySelector(".playground > ul");
 const gameOver = document.querySelector(".gameOver");
 const scoreDisplay = document.querySelector(".score");
 const restartButton = document.querySelector(".gameOver > button");
+const volumeOnIcon = document.querySelector(".on");
+const volumeOffIcon = document.querySelector(".off");
 
 // Setting
 const blockArray = Object.entries(BLOCKS);
 const GAME_ROWS = 20;
 const GAME_COLS = 10;
+const DIFICAULTY = {
+  easy: {
+    duration: 1000,
+  },
+  nomal: {
+    duration: 500,
+  },
+  hard: {
+    duration: 200,
+  },
+  hell: {
+    duration: 100,
+  },
+};
+const NOMAL_SCORE = 20;
+const HARD_SCORE = 30;
+const HELL_SCORE = 40;
+
+// BGM
+const bgmSourceUrl = "asset/bgm/dreams.mp3";
+const bgm = new BGM("bgm", bgmSourceUrl, 0.5, true);
+volumeOnIcon.addEventListener("click", () => {
+  bgm.pauseMusic();
+  volumeOnIcon.classList.add("hidden");
+  volumeOffIcon.classList.remove("hidden");
+});
+volumeOffIcon.addEventListener("click", () => {
+  bgm.startMusic();
+  volumeOffIcon.classList.add("hidden");
+  volumeOnIcon.classList.remove("hidden");
+});
+
+bgm.init();
 
 // Variables
+let currentDificalty = "easy";
 let score = 0;
-let dutation = 1000;
 let downInterval;
 let tempMovingItem;
 
@@ -110,7 +146,7 @@ function generateNewBlock() {
   clearInterval(downInterval);
   downInterval = setInterval(() => {
     moveBlock("top", 1);
-  }, dutation);
+  }, DIFICAULTY[currentDificalty].duration);
 
   const randomIndex = Math.floor(Math.random() * blockArray.length);
   movingItem.type = blockArray[randomIndex][0];
@@ -142,6 +178,7 @@ function checkEmpty(target) {
 function checkMatch() {
   const childNodes = playground.childNodes;
 
+  let matchLineCount = 0;
   childNodes.forEach((child) => {
     let matched = true;
     child.children[0].childNodes.forEach((li) => {
@@ -151,11 +188,39 @@ function checkMatch() {
     if (matched) {
       child.remove();
       prependNewLine();
-      score++;
-      scoreDisplay.innerText = score;
+      matchLineCount++;
     }
   });
+
+  for (let i = 0; i < matchLineCount; i++) {}
+
+  if (matchLineCount) {
+    const addingScore = getAddingScore(matchLineCount);
+    console.log(matchLineCount, addingScore);
+    score += addingScore;
+    scoreDisplay.innerText = score;
+
+    scoreDisplay.classList.add("zoomin");
+    setTimeout(() => {
+      scoreDisplay.classList.remove("zoomin");
+    }, 300);
+  }
+
+  currentDificalty = getDificalty(score);
   generateNewBlock();
+}
+
+function getAddingScore(matchLineCount) {
+  if (matchLineCount < 2) return matchLineCount;
+  if (matchLineCount <= 3) return matchLineCount * 2;
+  return matchLineCount * 5;
+}
+
+function getDificalty(score) {
+  if (score < NOMAL_SCORE) return "easy";
+  if (score < HARD_SCORE) return "nomal";
+  if (score < HELL_SCORE) return "hard";
+  return "hell";
 }
 
 function moveBlock(moveType, value) {
