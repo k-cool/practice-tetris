@@ -2,10 +2,13 @@
   "name": "tetris",
   "version": "0.0.1",
   "description": "테트리스",
-  "type": "module",
-  "main": "tetris.js",
+  "main": "server/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serverStart": "nodemon --exec babel-node server/app.js",
+    "host:dev": "npm run build:dev && npm run serverStart",
+    "host:prod": "npm run build:prod && npm run serverStart",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,24 @@
   "bugs": {
     "url": "https://github.com/k-cool/tetris-js/issues"
   },
-  "homepage": "https://github.com/k-cool/tetris-js#readme"
+  "homepage": "https://github.com/k-cool/tetris-js#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "install": "^0.13.0",
+    "nodemon": "^2.0.20",
+    "npm": "^9.4.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
 }
